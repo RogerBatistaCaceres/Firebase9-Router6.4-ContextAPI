@@ -1,6 +1,6 @@
 Documentacion
-React Context API
-https://bluuweb.dev/05-react/06-context-auth.html
+Firebase 9 + Router 6.4 + Context API
+https://bluuweb.dev/05-react/07-firebase.html
 
 npm i // para instalar todos los paquetes asociados al archivo package.json
 // y crear la carpeta node_modules
