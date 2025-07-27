@@ -1,0 +1,19 @@
+Documentacion
+React Context API
+https://bluuweb.dev/05-react/06-context-auth.html
+
+npm i // para instalar todos los paquetes asociados al archivo package.json
+// y crear la carpeta node_modules
+
+- Trabajo con Git
+  git init
+  git add .
+  git log --oneline
+  git commit -m "hasta el 34:Recorrer elementos con map"
+  git branch -M main
+  git push -u origin main // para actualizar al gitHub
+
+// para subir a github
+git remote add origin http://github.com/RogerBatistaCaceres/****.git
+git branch -M main
+git push -u origin main
