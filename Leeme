@@ -15,7 +15,11 @@ npm i // para instalar todos los paquetes asociados al archivo package.json
   git branch -M main
   git push -u origin main // para actualizar al gitHub
 
+  git remote remove origin
+
 // para subir a github
-git remote add origin http://github.com/RogerBatistaCaceres/****.git
+git remote add origin http://github.com/RogerBatistaCaceres/Firebase9-Router6.4-ContextAPI.git
 git branch -M main
 git push -u origin main
+
+git remote remove origin
