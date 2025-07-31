@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
 import { login } from "../config/firebase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import { useEffect } from "react";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { user } = useUserContext();
 
@@ -33,6 +33,12 @@ const Login = () => {
     } catch (error) {
       console.log(error.code);
       console.log(error.message);
+      if (error.code == "auth/invalid-credential") {
+        return setErrors({
+          email: "Usuario no registrado",
+          password: "Password incorrecto",
+        });
+      }
       if (error.code == "auth/user-not-found") {
         return setErrors({ email: "Usuario no registrado" });
       }
@@ -49,11 +55,17 @@ const Login = () => {
     password: Yup.string()
       .trim()
       .min(6, "Mínimo 6 carácteres")
-      .required("password requerido"),
+      .required("Contraseña requerida"),
   });
   return (
-    <>
-      <h1>Login</h1>
+    <Box sx={{ mt: 8, maxWidth: "400px", mx: "auto", textAlign: "center" }}>
+      <Avatar sx={{ mx: "auto", bgcolor: "#111" }}>
+        <AddAPhotoIcon />
+      </Avatar>
+
+      <Typography variant="h5" component="h1">
+        Login
+      </Typography>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={onSubmit}
@@ -68,32 +80,55 @@ const Login = () => {
           handleBlur,
           isSubmitting,
         }) => (
-          <form onSubmit={handleSubmit}>
-            <input
+          <Box onSubmit={handleSubmit} sx={{ mt: 1 }} component="form">
+            <TextField
               type="text"
-              placeholder="Ingrese email"
+              placeholder="email@example.com"
               value={values.email}
               onChange={handleChange}
               name="email"
               onBlur={handleBlur}
+              id="email"
+              label="Ingrese Email"
+              fullWidth
+              sx={{ mb: 3 }}
+              error={errors.email && touched.email}
+              helperText={errors.email && touched.email && errors.email}
             />
-            {errors.email && touched.email && errors.email}
-            <input
+            <TextField
               type="password"
-              placeholder="Ingrese contraseña"
+              placeholder="******"
               value={values.password}
               onChange={handleChange}
               name="password"
               onBlur={handleBlur}
+              id="password"
+              label="Ingrese contraseña"
+              fullWidth
+              sx={{ mb: 3 }}
+              error={errors.password && touched.password}
+              helperText={
+                errors.password && touched.password && errors.password
+              }
             />
-            {errors.password && touched.password && errors.password}
-            <button type="submit" disabled={isSubmitting}>
-              Login
-            </button>
-          </form>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              loading={isSubmitting}
+              variant="contained"
+              fullWidth
+              sx={{ mb: 3 }}
+            >
+              Acceder
+            </Button>
+
+            <Button fullWidth component={Link} to="/register">
+              ¿No tienes cuenta? Regístrate
+            </Button>
+          </Box>
         )}
       </Formik>
-    </>
+    </Box>
   );
 };
 
